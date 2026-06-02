@@ -1,0 +1,26 @@
+name: angie-proxy
+
+services:
+  angie:
+    image: docker.angie.software/angie:1.11.3-alpine
+    container_name: angie-proxy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./angie/angie.conf:/etc/angie/angie.conf:ro
+      - ./angie/http.d:/etc/angie/http.d:ro
+      - ./logs:/var/log/angie
+      - /var/run/docker.sock:/var/run/docker.sock:ro  # Для доступа к Docker API
+    networks:
+      - global_proxy
+
+networks:
+  global_proxy:
+    name: global_proxy
+    external: true

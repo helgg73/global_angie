@@ -1,0 +1,16 @@
+[Unit]
+Description=Create Docker network global_proxy for Angie proxy
+Documentation=https://angie.software/
+After=docker.service
+Requires=docker.service
+Wants=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/docker-network-ensure.sh
+RemainAfterExit=yes
+User=root
+Group=docker
+
+[Install]
+WantedBy=multi-user.target

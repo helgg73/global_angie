@@ -1,0 +1,26 @@
+# Обрабатывать текстовые файлы автоматически
+* text=auto
+
+# Явно указать для скриптов оболочки (всегда текстовые)
+*.sh text
+
+# Явно указать для unit-файлов systemd (всегда текстовые)
+*.service text
+
+# Дополнительно для Docker-хоста
+*.dockerfile text
+Dockerfile text
+*.yml text
+*.yaml text
+*.conf text
+
+# Запрещаем конвертацию для бинарных файлов
+*.png binary
+*.jpg binary
+*.ico binary
+
+# И для скриптов явно
+*.bash text eol=lf
+
+# И для html
+*.html text
