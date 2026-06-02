@@ -134,12 +134,28 @@ sudo mkdir -p /opt/docker
 # Меняем владельца и группу
 sudo chown root:docker /opt/docker
 
-# Даём права: владелец (root) и группа (docker) — всё могут, остальные — только читать
-sudo chmod 775 /opt/docker
+# Даём права с setgid битом для наследования группы
+sudo chmod 2775 /opt/docker
 
 # Проверяем результат
 ls -ld /opt/docker
-# Ожидаемый вывод: drwxrwxr-x 2 root docker 4096 ...
+# Ожидаемый вывод: drwxrwsr-x 2 root docker 4096 ...
+
+# --- Работа с проектами ---
+
+# Переходим в директорию
+cd /opt/docker
+
+# Клонируем проект (группа автоматически будет docker благодаря setgid)
+git clone https://github.com/user/myproject.git
+
+# Если нужно исправить права для существующего проекта:
+sudo chown -R root:docker /opt/docker/myproject
+sudo chmod -R 2775 /opt/docker/myproject
+
+# Проверяем права
+ls -ld /opt/docker/myproject
+# Ожидаемый вывод: drwxrwsr-x ... root docker ...
 ```
 
 ---
@@ -190,13 +206,14 @@ docker rm -f test-ufw
 
 ## 📋 Сводная таблица ожидаемого состояния
 
-| Компонент | Статус | Проверка |
-|-----------|--------|----------|
-| **UFW** | Активен, разрешены 22, 80, 443 | `sudo ufw status verbose` |
-| **Docker** | Установлен | `docker --version` |
-| **ufw-docker** | Установлен, правила в `DOCKER-USER` | `sudo iptables -L DOCKER-USER -n -v` |
-| **Группа docker** | Пользователь добавлен | `groups $USER` |
-| **/opt/docker** | Права `775`, владелец `root:docker` | `ls -ld /opt/docker` |
+| Компонент | Ожидаемый статус | Команда для проверки |
+| :--- | :--- | :--- |
+| **UFW** | Активен, разрешены порты 22, 80, 443 | `sudo ufw status verbose` |
+| **Docker** | Установлен и запущен | `docker --version` |
+| **ufw-docker** | Установлен, правила применены в цепочке `DOCKER-USER` | `sudo iptables -L DOCKER-USER -n -v` |
+| **Группа docker** | Текущий пользователь добавлен в группу | `groups $USER` |
+| **/opt/docker** | Владелец: `root:docker`, права: `2775` (setgid установлен) | `ls -ld /opt/docker` |
+| **Проекты** (напр. `myproject`) | Владелец: `root:docker`, права: `2775` (группа наследуется) | `ls -ld /opt/docker/myproject` |
 
 ---
 
