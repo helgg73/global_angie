@@ -65,7 +65,7 @@ echo \
 sudo apt update
 apt-cache madison docker-ce | head -10
 
-# Установка конкретной версии (пример для 5:29.5.2-1~ubuntu.24.04~noble)
+# Установка конкретной версии (пример для 5:29.5.2-1 buntu.24.04 oble)
 # Замените <VERSION_STRING> на нужную версию из списка выше
 sudo apt install -y docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> \
   containerd.io docker-buildx-plugin docker-compose-plugin
@@ -77,7 +77,7 @@ sudo apt-mark hold docker-ce docker-ce-cli
 docker --version
 ```
 
-> 📌 Версию можно посмотреть в списке `apt-cache madison docker-ce`. Формат: `5:29.5.2-1~ubuntu.24.04~noble`
+> 📌 Версию можно посмотреть в списке `apt-cache madison docker-ce`. Формат: `5:29.5.2-1 buntu.24.04 oble`
 
 ---
 
