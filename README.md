@@ -55,6 +55,7 @@ git clone ...
 
 ### 3. Установить systemd сервис
 
+Сервис нужен для создания общей для контейнеров сети.
 Скрипты настроены для Ubuntu/Debian. Для других дистрибутивов нужна адаптация.
 ```bash
 sudo cp systemd/docker-network-global_proxy.service /etc/systemd/system/
@@ -67,6 +68,7 @@ sudo systemctl start docker-network-global_proxy.service
 ### 4. Ротация логов
 
 Скрипты настроены для Ubuntu/Debian. Для других дистрибутивов нужна адаптация.
+
 Логи Angie пишутся в каталог `./logs` внутри проекта. Для настройки ротации:
 
 ```bash
