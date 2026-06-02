@@ -10,6 +10,7 @@
 
 ## Требования
 
+- Скрипты настроены для Ubuntu/Debian. Для других дистрибутивов нужна адаптация.
 - Docker Engine 20.10+
 - Docker Compose V2
 - Пользователь в группе `docker`
@@ -50,8 +51,11 @@ cd ~/angie-docker
 ```
 
 ### 2. (разместить файлы из репозитория)
+git clone ...
 
 ### 3. Установить systemd сервис
+
+Скрипты настроены для Ubuntu/Debian. Для других дистрибутивов нужна адаптация.
 ```bash
 sudo cp systemd/docker-network-global_proxy.service /etc/systemd/system/
 sudo cp systemd/scripts/docker-network-ensure.sh /usr/local/bin/
@@ -62,6 +66,7 @@ sudo systemctl start docker-network-global_proxy.service
 ```
 ### 4. Ротация логов
 
+Скрипты настроены для Ubuntu/Debian. Для других дистрибутивов нужна адаптация.
 Логи Angie пишутся в каталог `./logs` внутри проекта. Для настройки ротации:
 
 ```bash
