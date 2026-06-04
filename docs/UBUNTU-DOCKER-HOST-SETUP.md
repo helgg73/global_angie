@@ -13,9 +13,9 @@ sudo ufw status
 
 # Разрешаем необходимые порты
 sudo ufw allow 22/tcp comment 'SSH'
-sudo ufw allow 80/tcp comment 'HTTP'
+sudo ufw route allow 80/tcp comment 'HTTP'
 # Если нужен HTTPS
-# sudo ufw allow 443/tcp comment 'HTTPS'
+# sudo ufw route allow 443/tcp comment 'HTTPS'
 
 # Включаем UFW (подтверждаем "y")
 sudo ufw enable
